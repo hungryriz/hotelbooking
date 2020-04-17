@@ -1,0 +1,57 @@
+
+
+    $data = [
+
+ "aps" => [
+
+    "alert" => [
+
+        "title" => "Push Remote Rich Notifications",
+
+        "subtitle" => "iOS 10 - New API",
+
+        "body" => "Media Image Rich notification"
+
+        ],
+
+    "mutable-content" => 1,
+
+    "category" => "imageIdentifier"
+
+    ],
+
+    "data" => [
+
+      "attachment-url"=> "https://raw.githubusercontent.com/Sweefties/iOS10-NewAPI-UserNotifications-Example/master/source/iOS10-NewAPI-UserNotifications-Example.jpg"
+
+    ]
+
+];
+
+
+
+    $message = PushNotification::Message('Hello World, i`m a push message',array(
+    'badge' => 1,
+    'sound' => 'example.aiff',
+    "mutable-content" => 1,
+    "media-url" => "https://i.imgur.com/t4WGJQx.jpg",
+    'actionLocKey' => 'Action button title!',
+    'locKey' => 'localized key',
+    'locArgs' => array(
+        'localized args',
+        'localized args',
+    ),
+    'launchImage' => 'image.jpg',
+    
+    'custom' => array('custom data' => array(
+        "mutable-content" => 1,
+        "media-url" => "https://i.imgur.com/t4WGJQx.jpg",
+        'we' => 'want', 'send to app'
+    ))
+    
+    'custom' => array( "mutable-content" => 1,
+        "media-url" => "https://i.imgur.com/t4WGJQx.jpg" )
+    )
+    );
+   
+    return  json_encode($message);
