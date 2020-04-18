@@ -1,0 +1,30 @@
+/*!
+ * The Wolf v1.0 (http://thewolf.bittyfox.com/)
+ * Copyright The Wolf Company © 2017 
+ * 
+ */
+
+/*------------------------------------------------
+
+search result page
+
+-------------------------------------------------*/
+
+
+
+.search-result h3 a {
+    color: #337ab7;
+}
+
+.search-result h3  {
+   margin-bottom: 5px;
+}
+
+.search-result .sub-d{
+  font-size: 14px;
+  color: #ccc;
+}
+
+.search_results-for .form-control.input-lg {
+    height: 51px;
+}
