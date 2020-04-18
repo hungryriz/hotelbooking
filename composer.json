@@ -15,7 +15,7 @@
         "edujugon/push-notification": "^2.2",
         "hesto/multi-auth": "^1.0",
         "laravel/cashier-braintree": "^2.0",
-        "laravel/framework": "^5.8.0",
+        "laravel/framework": "5.4.*",
         "laravel/passport": "^2.0",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
