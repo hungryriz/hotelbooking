@@ -20,8 +20,11 @@
     <!-- Slick CSS -->
     <link href="{{ asset('assets/user/css/slick.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/user/css/slick-theme.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/user/css/bootstrap-datetimepicker.min.css')}}">
+
     <!-- Style CSS -->
     <link href="{{ asset('assets/user/css/style.css')}}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -60,23 +63,9 @@
                             </div>
                             <h4 class="log-loc-txt">Order food from favourite restaurants near you.</h4>
                             <!-- Location Form Starts -->
-                            <form  action="{{url('restaurants')}}" id="my_map_form" >
-                                 
-                                <div class="log-location-search input-group">
-                                    <input type="text" id="pac-input" name="search_loc" class="form-control" placeholder="Enter Your Delivery Location" required autofocus>
-                                    <span class="input-group-addon locate-me-btn my_map_form_current"><i class="ion-pinpoint"></i>  Locate Me</span>
-                                    <span class="input-group-addon log-search-btn"><button>Find Food</button></span>
-                                </div>
-                                <input type="hidden" id="latitude" name="latitude" value="{{ old('latitude') }}" readonly >
-                                <input type="hidden" id="longitude" name="longitude" value="{{ old('longitude') }}" readonly >
-                                <div id="my_map"   style="height:500px;width:500px;display: none" ></div>
-                            </form>
-                            <form  action="{{url('restaurants')}}" id="my_map_form_current" >
-                                <input type="hidden" id="pac-input_cur" class="form-control search-loc-form" placeholder="Search for area,street name..." name="search_loc" value="{{ old('latitude') }}" >
-                                <input type="hidden" id="latitude_cur" name="latitude" value="{{ old('latitude') }}" readonly >
-                                <input type="hidden" id="longitude_cur" name="longitude" value="{{ old('longitude') }}" readonly >
-                                
-                            </form>
+
+                            @include('booking.search');
+
                             <!-- Location Form Ends -->
                             <!-- Location Places Starts -->
                             <div class="log-location-places">
@@ -94,6 +83,14 @@
                             <!-- Location Places Ends -->
                         </div>
                     </div>
+
+
+
+
+
+
+
+                    
                     <!-- Log Location Section Ends -->
                 </div>
                 <!-- Login Content Left Ends -->
@@ -189,6 +186,7 @@
     <script src="{{ asset('assets/user/js/jquery.min.js')}}"></script>
     <!-- Bootstrap JS -->
     <script src="{{ asset('assets/user/js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('assets/user/js/bootstrap-datetimepicker.min.js')}}"></script>
     <!-- Slick Slider JS -->
     <script src="{{ asset('assets/user/js/slick.min.js')}}"></script>
     <!-- Sidebar JS -->
@@ -200,8 +198,10 @@
     <script src="{{ asset('assets/user/js/incrementing.js')}}"></script>
     <!-- Scripts -->
     <script src="{{ asset('assets/user/js/scripts.js')}}"></script>
+
+
     @include('user.layouts.partials.script')
-	<<!-- Start of LiveChat (www.livechatinc.com) code -->
+	<!-- Start of LiveChat (www.livechatinc.com) code -->
          <!-- <script type="text/javascript">
               window.__lc = window.__lc || {};
               window.__lc.license = 8256261;

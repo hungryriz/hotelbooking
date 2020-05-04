@@ -174,34 +174,34 @@
     </style>
 <script>
 
-var options = {
+// var options = {
 
-  url: "{{asset('assets/user/js/countryCodes.json')}}",
+//   url: "{{asset('assets/user/js/countryCodes.json')}}",
 
-  getValue: "name",
+//   getValue: "name",
 
-  list: {
-    match: {
-      enabled: true
-    },
-    onClickEvent: function() {
-            var value = $("#country_code").getSelectedItemData().dial_code;
+//   list: {
+//     match: {
+//       enabled: true
+//     },
+//     onClickEvent: function() {
+//             var value = $("#country_code").getSelectedItemData().dial_code;
 
-            $("#country_code").val(value).trigger("change");
-        },
-    maxNumberOfElements: 1000
-  },
+//             $("#country_code").val(value).trigger("change");
+//         },
+//     maxNumberOfElements: 1000
+//   },
 
-  template: {
-    type: "custom",
-    method: function(value, item) {
-      return "<span class='flag flag-" + (item.dial_code).toLowerCase() + "' ></span>" +value+"("+item.dial_code+")";
-    }
-  },
+//   template: {
+//     type: "custom",
+//     method: function(value, item) {
+//       return "<span class='flag flag-" + (item.dial_code).toLowerCase() + "' ></span>" +value+"("+item.dial_code+")";
+//     }
+//   },
 
-  theme: "round"
-};
-$("#country_code").easyAutocomplete(options);
+//   theme: "round"
+// };
+// $("#country_code").easyAutocomplete(options);
  var my_otp='';
     function smsLogin(){
         var countryCode = document.getElementById("country_code").value;
@@ -911,73 +911,70 @@ function FBLogin(id)
     var longitude_cur = document.getElementById('longitude_cur');
     var address = document.getElementById('address');
 
-    function initMap() { 
-
-        var userLocation = new google.maps.LatLng(
-                13.066239,
-                80.274816
-            );
+    function initMap() {
         
-        map = new google.maps.Map(document.getElementById('my_map'), {
-            center: userLocation,
-            zoom: 15
-        });
-
-        var service = new google.maps.places.PlacesService(map);
-        var autocomplete = new google.maps.places.Autocomplete(input);
-        var infowindow = new google.maps.InfoWindow();
-
-        autocomplete.bindTo('bounds', map);
-
-        var infowindow = new google.maps.InfoWindow({
-            content: "Shop Location",
-        });
-
-        var marker = new google.maps.Marker({
-            map: map,
-            draggable: true,
-            anchorPoint: new google.maps.Point(0, -29)
-        });
-
-        marker.setVisible(true);
-        marker.setPosition(userLocation);
-        infowindow.open(map, marker);
-
-        if (navigator.geolocation) { 
-            navigator.geolocation.getCurrentPosition(function(location) { console.log(location);
+         if (navigator.geolocation) { 
+            navigator.geolocation.getCurrentPosition(function(location) { 
                 var userLocation = new google.maps.LatLng(
                     location.coords.latitude,
                     location.coords.longitude
                 );
                
-                latitude_cur.value = location.coords.latitude;
-                longitude_cur.value = location.coords.longitude;
-                
-                
-                //var latLngvar = location.coords.latitude+' '+location.coords.longitude+"   ";
+                // latitude_cur.value = location.coords.latitude;
+                // longitude_cur.value = location.coords.longitude;
+                latitude.value = location.coords.latitude;
+                longitude.value = location.coords.longitude;
+
+                var latLngvar = location.coords.latitude+' '+location.coords.longitude+"   ";
+
+                map = new google.maps.Map(document.getElementById('my_map'), {
+                    center: userLocation,
+                    zoom: 15
+                });
+
+                var service = new google.maps.places.PlacesService(map);
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                var infowindow = new google.maps.InfoWindow();
+
+                autocomplete.bindTo('bounds', map);
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: "Shop Location",
+                });
+
+                var marker = new google.maps.Marker({
+                    map: map,
+                    draggable: true,
+                    anchorPoint: new google.maps.Point(0, -29)
+                });
+
+                marker.setVisible(true);
+                marker.setPosition(userLocation);
+                infowindow.open(map, marker);
+
                 var latlng = {lat: parseFloat(location.coords.latitude), lng: parseFloat(location.coords.longitude)};
                 getcustomaddress(latlng);
                 marker.setPosition(userLocation);
                 map.setCenter(userLocation);
                 map.setZoom(13);
+                google.maps.event.addListener(map, 'click', updateMarker);
+                google.maps.event.addListener(marker, 'dragend', updateMarker);
             });
         } else {
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
         }
 
-        google.maps.event.addListener(map, 'click', updateMarker);
-        google.maps.event.addListener(marker, 'dragend', updateMarker);
+
 
         function getcustomaddress(latLngvar){
             var geocoder = new google.maps.Geocoder();
-            console.log(latLngvar);
             geocoder.geocode({'latLng': latLngvar}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     //console.log(results[0]);
                     if (results[0]) {
                         
-                        input_cur.value = results[0].formatted_address;
+                        input.value = results[0].formatted_address;
                          
                         //updateForm(event.latLng.lat(), event.latLng.lng(), results[0].formatted_address);
                     } else {
@@ -1011,7 +1008,6 @@ function FBLogin(id)
         autocomplete.addListener('place_changed', function(event) {
             marker.setVisible(false);
             var place = autocomplete.getPlace();
-
             if (place.hasOwnProperty('place_id')) {
                 if (!place.geometry) {
                     window.alert("Autocomplete's returned place contains no geometry");
@@ -1057,6 +1053,22 @@ function FBLogin(id)
             $('#my_map_form').submit();
         }
     })*/
+
+
+    $('#check_in, #check_out').datepicker({
+        autoclose: true
+    });
+
+    $('#check_out').datepicker()
+        .on('show',function(e) {
+            var fromDate = new Date($('#check_in').val());
+            var toDate = new Date(fromDate);
+            toDate.setDate(fromDate.getDate()+1);
+            toDate.toLocaleDateString();
+            $('#check_out').datepicker('setStartDate', toDate);
+    });
+
+
 
 </script>
     

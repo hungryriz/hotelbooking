@@ -26,6 +26,31 @@
                             @endif
                         </div>
 
+                        <div class="form-group{{ $errors->has('adults') ? ' has-error' : '' }}">
+                            <label for="adults">@lang('inventory.product.adults')</label>
+
+                            <input id="adults" type="text" class="form-control" name="adults" value="{{ $Product->adults }}" required autofocus>
+
+                            @if ($errors->has('adults'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('adults') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+
+
+                        <div class="form-group{{ $errors->has('children') ? ' has-error' : '' }}">
+                            <label for="children">@lang('inventory.product.children')</label>
+
+                            <input id="children" type="text" class="form-control" name="children" value="{{ $Product->children }}" required autofocus>
+
+                            @if ($errors->has('children'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('children') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+
                         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                             <label for="description">@lang('inventory.product.desc')</label>
 

@@ -80,7 +80,9 @@ class ProductResource extends Controller
                 'category' => 'required',
                 'food_type' => 'required',
                 'price' => 'required',
-                'product_position' => 'required'
+                'product_position' => 'required',
+                'adults' => 'required',
+                'children' => 'required',
             ]);
         try {
 
@@ -107,6 +109,8 @@ class ProductResource extends Controller
                     'food_type' => $request->food_type,
                     'parent_id' => $request->parent_id,
                     'position' => $request->product_position,
+                    'adults' => $request->adults,
+                    'children' => $request->children
             ]);
             
             $Product->categories()->attach($request->category);
@@ -231,7 +235,9 @@ class ProductResource extends Controller
                 //'image' => 'image',
                 'category' => 'required',
                 'price' => 'required',
-                'product_position' => 'required'
+                'product_position' => 'required',
+                'adults' => 'required',
+                'children' => 'required'
             ]);
 
         try {
@@ -253,6 +259,11 @@ class ProductResource extends Controller
             }else{
                 $Update['addon_status'] = 0;
             }
+
+            $Update['adults'] = (int) $Update['adults'];
+            $Update['children'] = (int) $Update['children'];
+
+            // dd($Update);
 
             $Product->update($Update);
             if($request->has('discount')) {

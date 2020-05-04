@@ -22,6 +22,7 @@ use App\Category;
 use App\Promocode;
 use App\ShopBanner;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class SearchResource extends Controller
@@ -34,6 +35,20 @@ class SearchResource extends Controller
     public function index(Request $request)
     {   
         try{
+
+            // "search_loc" => "13-13A號 Cheung Fat St, So Uk, Hong Kong"
+            // "fromDate" => "05/06/2020"
+            // "toDate" => "05/15/2020"
+            // "rooms" => "1"
+            // "adults" => "1"
+            // "kids" => "0"
+            // "child_ages" => array:1 [▼
+            //   0 => "0"
+            // ]
+            // "latitude" => "22.3387974"
+            // "longitude" => "114.1563089"
+
+
             $user_id = NULL;
             if($request->has('user_id')){
                 $user_id = $request->user_id?:NULL;  
@@ -47,13 +62,24 @@ class SearchResource extends Controller
             if($request->has('longitude')){
               Session::put('longitude',$request->longitude);
             }
-            $Products = Product::listsearch($user_id,$request->name);
+
+            // DB::enableQueryLog(); // Enable query log
+            // try {
+            //     $Products = Product::bookedRooms($request);
+            // } catch (Exception $e) {
+            //     echo $e->getMessage();
+            //     die();
+            // }
+
+            // dd($Products);
+            $Products = Product::bookedRooms($request);
+            dd($Products);
+            // $Products = Product::listsearch($user_id,$request->name);
             $Shops = (new ShopResource)->filter($request);
-            if($request->has('latitude') && $request->has('longitude'))
-            {
+            if($request->has('latitude') && $request->has('longitude')) {
                 $longitude = $request->longitude; 
                 $latitude = $request->latitude;
-                if(Setting::get('search_distance')>0){
+                if(Setting::get('search_distance')>0) {
                     $distance = Setting::get('search_distance');
                     $BannerImage = ShopBanner::with('shop','product')
                         ->whereHas('shop', function ($query) use ($latitude,$longitude,$distance){
@@ -68,7 +94,7 @@ class SearchResource extends Controller
                         $BannerImagee['shopopenstatus'] = (new ShopResource)->shoptiming($BannerImagee->shop);;
                         return $BannerImagee;
                          });
-                }else{
+                } else {
                     $BannerImage = ShopBanner::with('shop','product')->get();
                     $BannerImage->map(function ($BannerImagee) {
                         $BannerImagee['shopstatus'] = (new ShopResource)->shoptime($BannerImagee->shop);;
@@ -76,7 +102,7 @@ class SearchResource extends Controller
                         return $BannerImagee;
                     });
                 }
-            }else{    
+            } else {    
                 $BannerImage = ShopBanner::with('shop','product')->get();
                 $BannerImage->map(function ($BannerImagee) {
                     $BannerImagee['shopstatus'] = (new ShopResource)->shoptime($BannerImagee->shop);;
@@ -93,7 +119,7 @@ class SearchResource extends Controller
             $Shops_vegiterian =  clone $Shops;
             //print_r(DB::getQueryLog()); exit;
             
-            if($request->ajax()){
+            if($request->ajax()) {
                 $data = [
                     'products' => $Products,
                     'shops' => $Shops
@@ -107,16 +133,15 @@ class SearchResource extends Controller
                     return $Shop;
                 });
 
-             if($request->get('v')=='grid'){
+             if($request->get('v')=='grid') {
                 return view('user.shop.index-grid',compact('Shops','Cuisines'));
-            }else
-            if($request->get('v')=='map'){
+            } else if($request->get('v')=='map') {
                 return view('user.shop.index-map',compact('Shops','Cuisines'));
-            }else{
+            } else {
                 return view('user.shop.index',compact('Shops','Cuisines','BannerImage','Shops_popular','Shops_superfast','Shops_offers','Shops_vegiterian','Shops_new'));
             }
-         }catch(Exception $e){
-            if($request->ajax()){
+         } catch(Exception $e) {
+            if($request->ajax()) {
                 return response()->json(['error' => trans('form.whoops')], 500);
             }
             return back()->with('flash_error', trans('form.whoops'));

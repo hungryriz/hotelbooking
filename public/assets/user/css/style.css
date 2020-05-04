@@ -3674,3 +3674,7 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
+
+#my_map_form .search_loc {
+    width: 100%;
+}

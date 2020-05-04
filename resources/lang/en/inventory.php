@@ -18,10 +18,10 @@ return [
         'no_record_found' => 'No Cuisine Found'
     ],
     'category' => [
-        'title' => 'Categories',
-        'add_title' => 'Create Category',
-        'edit_title' => 'Edit Category',
-        'add_category' => 'Add Category',
+        'title' => 'Room Types',
+        'add_title' => 'Create Room Type',
+        'edit_title' => 'Edit Room Type',
+        'add_category' => 'Add Room Type',
         'sl_no' => 'Sl.No',
         'name' => 'Name',
         'desc' => 'Description',
@@ -29,18 +29,18 @@ return [
         'resturant_name' => 'Resturant',
         'image' => 'Image',
         'action' => 'Action',
-        'no_record_found' => 'No Category Found',
-        'sub_title' => 'Sub Category',
-        'add_subcategory' => 'Add Sub Category',
-        'sub_no_record_found' => 'No Sub Category Found',
-        'position' => 'Category order'
+        'no_record_found' => 'No Room Type Found',
+        'sub_title' => 'Sub Room Type',
+        'add_subcategory' => 'Add Sub Room Type',
+        'sub_no_record_found' => 'No Sub Room Type Found',
+        'position' => 'Room Type order'
 
     ],
     'product' => [
-        'title' => 'Products',
-        'add_title' => 'Create Product',
-        'edit_title' => 'Edit Product',
-        'add_product' => 'Add Product',
+        'title' => 'Rooms',
+        'add_title' => 'Create Room',
+        'edit_title' => 'Edit Room',
+        'add_product' => 'Add Room',
         'sl_no' => 'Sl.No',
         'name' => 'Name',
         'desc' => 'Description',
@@ -50,23 +50,24 @@ return [
         'action' => 'Action',
         'cuisine' => 'Cuisines',
         'category' => 'Category',
-        'no_record_found' => 'No Product Found',
+        'no_record_found' => 'No Room Found',
         'pricing_title' => 'Pricing',
         'price' => 'Price',
         'discount' => 'Discount',
         'discount_type' => 'Discount Type',
         'currency' => 'Currency',
-        'featured' => 'Is Featured Product',
+        'featured' => 'Is Featured Room',
         'featured_position' => 'Featured Position',
         'featured_image' => 'Featured Image',
-        'featured_image_note' => 'Note:- Please upload Image size 252x152 for featured Product',
+        'featured_image_note' => 'Note:- Please upload Image size 252x152 for featured Room',
         'addons' => 'Addons List',
         'sub_category' => 'Sub Category',
-        'product_position' => 'Product Order',
+        'product_position' => 'Room Order',
         'fixed' => 'Fixed',
         'addon_fixed' => 'Fixed Addon',
-        'out_of_stock' => 'Out Of Stock'
- 
+        'out_of_stock' => 'No Room Available',
+        'adults' => 'Adults',
+        'children' => 'Children'
     ],
     'addons' => [
 

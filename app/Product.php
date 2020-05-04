@@ -25,7 +25,9 @@ class Product extends Model
         'addon_status',
         'status',
         'food_type',
-        'out_of_stock'
+        'out_of_stock',
+        'adults',
+        'children'
     ];
 
     /**
@@ -129,6 +131,22 @@ class Product extends Model
         return $query->with(['addons','prices','images', 'cart'=> function($query) use ($user_id,$name){
             return $query->where('user_id', $user_id);
         },'cart.cart_addons','shop'])->where('name', 'LIKE', '%' . $name . '%')->get();
+    }
+
+
+    public function scopeBookedRooms($query, $request = NULL){
+        try {
+            return $query->with(['cart'=> function($query) use ($request){
+                return $query->whereBetween('check_in', [$request->check_in, $request->check_out])
+                            ->whereBetween('check_out', [$request->check_in, $request->check_out]);
+            }, 'shop'])
+            // ->where('name', 'LIKE', '%' . $name . '%')
+            ->where('adults', '=', $request->adults)
+            ->where('children', '=', $request->children)
+            ->get();
+        } catch(Exception $e) {
+            echo $e->getMessasge();
+        }
     }
     
     /**
